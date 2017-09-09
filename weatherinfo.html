@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    
+    <input type="text" class="location">
+    <button class="getWeather">Get Weather</button>
+    <div class="weather"></div>
+    <div class="error"></div>
+    
+    <script src="jquery-3.2.1.js"></script>
+    
+    <script>
+    
+    $(".getWeather").click(function(){
+        var location = $(".location").val();
+        console.log(location);
+        
+        $.ajax({
+            url:' http://api.openweathermap.org/data/2.5/weather?q='+location+'&appid=14a55070c15fd38f9aaf0eb27f224f7b',
+            method:'GET',
+            success:function(data){
+               console.log(data) 
+               $(".weather").text(data.weather[0].main)
+            },
+            error:function(data){
+                console.log(JSON.parse(data.responseText).message);
+                $(".error").text(JSON.parse(data.responseText).message)
+            }
+        })
+        
+        
+        
+    })
+    
+    
+    </script>
+    
+</body>
+</html>
